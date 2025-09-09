@@ -3,36 +3,53 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         String[] seats = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        String[] seatsReference = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         String[] seatsPersNr = new String[seats.length];
         String[] seatsName = {};
-        int kostnad = 0;
+        String[] idList = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
+        double kostnad = 0;
     
         Scanner keyB = new Scanner(System.in);
-        
+        int e = 0;
     while(true)
     {
-        System.out.println("Hello person, do you wish to, \n1. Book a seat\n2. Avalible seats\n3. Beräkna slutsumman \n4. Avsluta programmet");
+        System.out.println("Hello person, do you wish to, \n1. Book a seat\n2. Avalible seats\n3. Beräkna slutsumman \n4. Avsluta programmet \n5. Find your seat \n6. Unbook a seat");
         
         
         String choice1 = keyB.nextLine();
         int choice2 = Integer.parseInt(choice1);
+
+        e += 1;
+
         
-        if(choice2 == 1)
+        
+if(choice2 == 1)
+{
+    String perNum = ID(keyB);
+    int perNrInt = Integer.parseInt(perNum);
+    
+    String seatNr = Booking(keyB, perNrInt, seats);
+
+    boolean seatBooked = false;
+    for(int i = 0; i < seats.length; i++)
+    {
+        if(seatNr.equals(seats[i]))
         {
-            
-            int perNr = ID(keyB);
-                String seatNr = Booking(keyB, perNr, seats);
-                for(int i = 0; i < seats.length; i++)
-                {
-                    if(seatNr.equals(seats[i]))
-                    {
-                    seatsPersNr[i] = seatNr;
-                    seats[i] = "xx";
-                    SeatList(seats);
-                    kostnad += 299;
-                }
-            }
+            seatsPersNr[i] = perNum;
+            idList[i] = perNum;
+            seats[i] = "xx";
+            SeatList(seats);
+            kostnad += 299;
+            System.out.println("Seat " + seatNr + " has been booked");
+            seatBooked = true;
+            break;
         }
+    }
+
+    if (!seatBooked) {
+        System.out.println("Seat " + seatNr + " is already booked");
+    }
+}
         else if(choice2 == 2)
         {
             SeatList(seats);
@@ -45,6 +62,40 @@ public class App {
         {
             keyB.close();
             System.exit(0);
+        }
+        else if(choice2 == 5)
+        {
+            System.out.println("Please type your personnummer to find your seat");
+            String bookCheck = keyB.nextLine();
+
+            for(int i = 0; i < seats.length; i++)
+            {
+                if(bookCheck.equals(idList[i+1]))
+                {
+                    System.out.println("Your seat is, " + seatsReference[i+1]);
+                }
+            }
+        }
+        else if(choice2 == 6)
+        {
+            System.out.println("Please type your personnummer to unbook your seat");
+            String bookCheck = keyB.nextLine();
+
+            for(int i = 0; i < seats.length; i++)
+            {
+                if(bookCheck.equals(idList[i+1]))
+                {
+                    if(seats[i].length() == 1)
+                    {
+                        seats[i] = ("0"+i);
+                    }
+                    else
+                    {
+                        seats[i] = "" + i;
+                    }
+                    System.out.println("Your seat has been unbooked");
+                }
+            }
         }
         else
         {
@@ -67,11 +118,20 @@ public class App {
     }
     
 
+    // public static void SeatCheck(String[] seats, String pick)
+    // {
+    //     for(int i = 0; i < seats.length; i++)
+    //     {
+    //         if(pick.equals("xx"))
+    //         {
+    //             System.out.println("This seat is already taken, please try again");
+    //         }
+    //     }
+    // }
 
 
 
-
-    public static int ID(Scanner keyB)
+    public static String ID(Scanner keyB)
     {
         while(true)
         {
@@ -81,8 +141,7 @@ public class App {
             {
                 if(bookPR.length() == 6)
                 {
-                    int pR = Integer.parseInt(bookPR);
-                    return pR;
+                    return bookPR;
                 }
                 else
                 {

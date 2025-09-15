@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) throws Exception {
         String[] seats = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
-        String[] seatsReference = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        String[] seatsReference = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         String[] seatsPersNr = new String[seats.length];
         String[] seatsName = {};
         String[] idList = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
@@ -47,7 +47,7 @@ if(choice2 == 1)
     }
 
     if (!seatBooked) {
-        System.out.println("Seat " + seatNr + " is already booked");
+        System.out.println("Seat " + seatNr + " is already booked or not avalible");
     }
 }
         else if(choice2 == 2)
@@ -83,17 +83,18 @@ if(choice2 == 1)
 
             for(int i = 0; i < seats.length; i++)
             {
-                if(bookCheck.equals(idList[i+1]))
+                if(bookCheck.equals(idList[i]))
                 {
-                    if(seats[i].length() == 1)
+                    if(seatsReference[i].length() == 1)
                     {
-                        seats[i] = ("0"+i);
+                        seats[i] = ("0"+(i+1));
                     }
                     else
                     {
-                        seats[i] = "" + i;
+                        seats[i] = "" + (i+1);
                     }
                     System.out.println("Your seat has been unbooked");
+                    kostnad -= 299;
                 }
             }
         }

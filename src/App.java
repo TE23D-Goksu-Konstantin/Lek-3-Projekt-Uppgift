@@ -1,33 +1,49 @@
+import java.io.Console;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
         String[] seats = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         String[] seatsReference = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
-        String[] seatsPersNr = new String[seats.length];
-        String[] seatsName = {};
+        String[] seatsPersNr = new String[20];
+        String[] seatsName = new String[20];
         String[] idList = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
-        double kostnad = 0;
+        double cost = 0;
     
+        for(int i = 0; i < seatsName.length; i++)
+        {
+            seatsPersNr[i] = "0";
+            seatsName[i] = "0";
+        }
+
         Scanner keyB = new Scanner(System.in);
-        int e = 0;
     while(true)
     {
-        System.out.println("Hello person, do you wish to, \n1. Book a seat\n2. Avalible seats\n3. Beräkna slutsumman \n4. Avsluta programmet \n5. Find your seat \n6. Unbook a seat");
+        System.out.println("Hello person, do you wish to, \n1. Book a seat\n2. Avalible seats\n3. Beräkna slutsumman \n4. Avsluta programmet \n5. Find your seat \n6. Unbook a seat \n7. Bookings list");
         
         
         String choice1 = keyB.nextLine();
         int choice2 = Integer.parseInt(choice1);
 
-        e += 1;
 
         
         
 if(choice2 == 1)
 {
-    String perNum = ID(keyB);
-    int perNrInt = Integer.parseInt(perNum);
     
+    String perNum = ID(keyB, cost);
+    int perNrInt = Integer.parseInt(perNum);
+
+        if(perNrInt <= 20070101)
+        {
+            cost += 299.90;
+        }
+        else
+        {
+            cost += 149.9; 
+        }
+    
+    String name = Name(keyB);
     String seatNr = Booking(keyB, perNrInt, seats);
 
     boolean seatBooked = false;
@@ -36,10 +52,10 @@ if(choice2 == 1)
         if(seatNr.equals(seats[i]))
         {
             seatsPersNr[i] = perNum;
+            seatsName[i] = name;
             idList[i] = perNum;
             seats[i] = "xx";
             SeatList(seats);
-            kostnad += 299;
             System.out.println("Seat " + seatNr + " has been booked");
             seatBooked = true;
             break;
@@ -56,7 +72,7 @@ if(choice2 == 1)
         }
         else if(choice2 == 3)
         {
-            System.out.println(kostnad + "kr");
+            System.out.println(cost + "kr");
         }
         else if(choice2 == 4)
         {
@@ -94,7 +110,29 @@ if(choice2 == 1)
                         seats[i] = "" + (i+1);
                     }
                     System.out.println("Your seat has been unbooked");
-                    kostnad -= 299;
+                    int unbookInt = Integer.parseInt(idList[i]);
+                    if(unbookInt <= 20070101)
+                    {
+                        cost -= 299.9;
+                    }
+                    else
+                    {
+                        cost -= 149.9;
+                    }
+                }
+            }
+        }
+        else if(choice2 == 7)
+        {
+            for(int i = 0; i < seats.length; i++)
+            {
+                if(idList[i].compareTo(idList[i+1]) > 0)
+                {
+                    System.out.println("Name: "+ seatsName[i+1] + " Personnummer: " + seatsPersNr[i+1] + " Seat: " + seatsReference[i+1]);
+                }
+                else
+                {
+                    System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
                 }
             }
         }
@@ -119,30 +157,19 @@ if(choice2 == 1)
     }
     
 
-    // public static void SeatCheck(String[] seats, String pick)
-    // {
-    //     for(int i = 0; i < seats.length; i++)
-    //     {
-    //         if(pick.equals("xx"))
-    //         {
-    //             System.out.println("This seat is already taken, please try again");
-    //         }
-    //     }
-    // }
 
 
-
-    public static String ID(Scanner keyB)
+    public static String ID(Scanner keyB, double cost)
     {
         while(true)
         {
-            System.out.println("Please give me your Personnummer by this given formula (YYMMDD)");
+            System.out.println("Please give me your Personnummer by this given formula (YYYYMMDD)");
             String bookPR = keyB.nextLine();
             try
             {
-                if(bookPR.length() == 6)
+                if(bookPR.length() == 8)
                 {
-                    return bookPR;
+                        return bookPR;
                 }
                 else
                 {
@@ -152,6 +179,31 @@ if(choice2 == 1)
             catch(Exception e)
             {
                 System.out.println("Personnummer not found, please try again");
+            }  
+        }
+    }
+
+
+        public static String Name(Scanner keyB)
+    {
+        while(true)
+        {
+            System.out.println("Please give me your first and last name");
+            String bookName = keyB.nextLine();
+            try
+            {
+                if(bookName.length() <= 25)
+                {
+                    return bookName;
+                }
+                else
+                {
+                    System.out.println("Name too long, please try again");
+                }
+            }
+            catch(Exception e)
+            {
+                System.out.println("Name too long, please try again");
             }  
         }
     }

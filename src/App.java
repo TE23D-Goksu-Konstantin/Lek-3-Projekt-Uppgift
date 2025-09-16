@@ -82,12 +82,12 @@ if(choice2 == 1)
         }
         else if(choice2 == 5)
         {
-            System.out.println("Please type your personnummer to find your seat");
+            System.out.println("Please type your personnummer or name to find your seat");
             String bookCheck = keyB.nextLine();
 
             for(int i = 0; i < seats.length; i++)
             {
-                if(bookCheck.equals(idList[i+1]))
+                if(bookCheck.equals(idList[i+1]) || bookCheck.equals(seatsName[i]))
                 {
                     System.out.println("Your seat is, " + seatsReference[i+1]);
                 }
@@ -95,12 +95,12 @@ if(choice2 == 1)
         }
         else if(choice2 == 6)
         {
-            System.out.println("Please type your personnummer to unbook your seat");
+            System.out.println("Please type your personnummer or name to unbook your seat");
             String bookCheck = keyB.nextLine();
 
             for(int i = 0; i < seats.length; i++)
             {
-                if(bookCheck.equals(idList[i]))
+                if(bookCheck.equals(idList[i]) || bookCheck.equals(seatsName[i]))
                 {
                     if(seatsReference[i].length() == 1)
                     {

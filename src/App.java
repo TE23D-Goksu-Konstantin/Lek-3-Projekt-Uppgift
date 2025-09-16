@@ -9,6 +9,8 @@ public class App {
         String[] seatsName = new String[20];
         String[] idList = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
         double cost = 0;
+
+   
     
         for(int i = 0; i < seatsName.length; i++)
         {
@@ -24,7 +26,6 @@ public class App {
         
         String choice1 = keyB.nextLine();
         int choice2 = Integer.parseInt(choice1);
-
 
         
         
@@ -209,15 +210,73 @@ if(choice2 == 1)
     }
 
 
+        public static String WindowSeat(Scanner keyB, String[] seats) 
+    {
+        while(true)
+        {
+            for(int i = 0; i < seats.length; i += 4)
+            {
+                if(seats[i] == "xx")
+                {
+
+                }
+                else
+                {
+                    return seats[i];
+                }
+            }
+
+                for(int i = 3; i < seats.length; i += 4)
+            {
+                if(seats[i] == "xx")
+                {
+
+                }
+                else
+                {
+                    return seats[i];
+                }
+            }
+            break;
+        }
+        System.out.println("All window seats have already been booked, we sincerely apologize");
+        return "f";
+    }
 
 
         public static String Booking(Scanner keyB, int pR, String[] seats)
     {
+        String bookPR;
+
+        while(true)
+        {
+            System.out.println("Do you want a windowseat? It will be randomly assigned to you (y/n)");
+            String wCheck = keyB.nextLine();
+            if(wCheck.equals("y"))
+            {
+                bookPR = WindowSeat(keyB, seats);
+                if(bookPR == "f")
+                {
+                    break;
+                }
+                return bookPR;
+            }
+            else if(wCheck.equals("n"))
+            {
+                break;
+            }
+            else
+            {
+                System.out.println("Faulty input, please try again");
+            }
+        }
+
+
         while(true)
         {
             System.out.println("Please choose a seat");
             SeatList(seats);
-            String bookPR = keyB.nextLine();
+            bookPR = keyB.nextLine();
             try
             {
                 if(bookPR.length() == 2)

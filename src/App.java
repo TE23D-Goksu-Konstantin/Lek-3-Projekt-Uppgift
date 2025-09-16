@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.util.Scanner;
 
 public class App {
@@ -7,7 +6,7 @@ public class App {
         String[] seatsReference = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         String[] seatsPersNr = new String[20];
         String[] seatsName = new String[20];
-        String[] idList = {"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"};
+        String[] idList = new String[20];
         double cost = 0;
 
    
@@ -16,6 +15,7 @@ public class App {
         {
             seatsPersNr[i] = "0";
             seatsName[i] = "0";
+            idList[i] = "0";
         }
 
         Scanner keyB = new Scanner(System.in);
@@ -125,15 +125,19 @@ if(choice2 == 1)
         }
         else if(choice2 == 7)
         {
+
             for(int i = 0; i < seats.length; i++)
             {
-                if(idList[i].compareTo(idList[i+1]) > 0)
+                for(int o = 0; o < seats.length; o++)
                 {
-                    System.out.println("Name: "+ seatsName[i+1] + " Personnummer: " + seatsPersNr[i+1] + " Seat: " + seatsReference[i+1]);
-                }
-                else
-                {
-                    System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
+                    if(i != o)
+                    {
+                        if(idList[i].compareTo(idList[o]) > 0)
+                        {
+                            System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -164,7 +168,7 @@ if(choice2 == 1)
     {
         while(true)
         {
-            System.out.println("Please give me your Personnummer by this given formula (YYYYMMDD)");
+            System.out.println("Please state your Personnummer by this given formula (YYYYMMDD)");
             String bookPR = keyB.nextLine();
             try
             {
@@ -189,7 +193,7 @@ if(choice2 == 1)
     {
         while(true)
         {
-            System.out.println("Please give me your first and last name");
+            System.out.println("Please state your first and last name");
             String bookName = keyB.nextLine();
             try
             {

@@ -87,9 +87,9 @@ if(choice2 == 1)
 
             for(int i = 0; i < seats.length; i++)
             {
-                if(bookCheck.equals(idList[i+1]) || bookCheck.equals(seatsName[i]))
+                if(bookCheck.equals(idList[i]) || bookCheck.equals(seatsName[i]))
                 {
-                    System.out.println("Your seat is, " + seatsReference[i+1]);
+                    System.out.println("Your seat is, " + seatsReference[i]);
                 }
             }
         }
@@ -123,24 +123,28 @@ if(choice2 == 1)
                 }
             }
         }
-        else if(choice2 == 7)
+        else if(choice2 == 7) //fail
         {
-
             for(int i = 0; i < seats.length; i++)
             {
+                boolean larger = true;
+
                 for(int o = 0; o < seats.length; o++)
                 {
                     if(i != o)
                     {
-                        if(idList[i].compareTo(idList[o]) > 0)
-                        {
-                            System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
-                            break;
+                            if(idList[o].compareTo(idList[i]) >= 0)
+                            {
+                                larger = false;
+                            }
                         }
+                    }
+                    if(larger == true)
+                    {
+                        System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
                     }
                 }
             }
-        }
         else
         {
             System.out.println("Faulty input");
@@ -296,3 +300,4 @@ if(choice2 == 1)
         }
     }
 }
+

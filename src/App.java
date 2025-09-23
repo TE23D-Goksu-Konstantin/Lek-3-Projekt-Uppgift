@@ -123,28 +123,34 @@ if(choice2 == 1)
                 }
             }
         }
-        else if(choice2 == 7) //fail
+        else if(choice2 == 7) 
         {
+            boolean[] printed = new boolean[idList.length];
             for(int i = 0; i < seats.length; i++)
             {
-                boolean larger = true;
-
+                String maxId = "0";
+                int max = -1;
+                
                 for(int o = 0; o < seats.length; o++)
                 {
-                    if(i != o)
+                    if(!printed[o] && !idList[o].equals("0") && idList[o].compareTo(maxId) > 0)
                     {
-                            if(idList[o].compareTo(idList[i]) >= 0)
-                            {
-                                larger = false;
-                            }
-                        }
+                        maxId = idList[o];
+                        max = o;
                     }
-                    if(larger == true)
-                    {
-                        System.out.println("Name: "+ seatsName[i] + " Personnummer: " + seatsPersNr[i] + " Seat: " + seatsReference[i]);
-                    }
+
                 }
+
+                if(max == -1)
+                {
+                    break;
+                }
+
+                System.out.println("Name: " + seatsName[max] + " Personnummer: " + seatsPersNr[max] + " Seat: " + seatsReference[max]);
+                printed[max] = true;
+                
             }
+        }
         else
         {
             System.out.println("Faulty input");
